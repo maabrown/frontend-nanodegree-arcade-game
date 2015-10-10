@@ -5,10 +5,12 @@ var Enemy = function() {
     this.x = 50;
     this.y = this.getEnemyRow();
     this.speed = this.getEnemySpeed();
+    this.right = this.x + 30;
     //this.speed = ;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
+    this.bottom = this.y +30;
 };
 
 // Update the enemy's position, required method for game
@@ -52,12 +54,25 @@ var Player = function() {
     this.sprite = 'images/char-princess-girl.png';
     this.x = 200;
     this.y = 375;
-    //this.checkCollison() = function() {}; //reset the game when player and bug collide
+    this.right = this.x + 30;
+    this.bottom = this.y + 30;
 };
 // This class requires an update(), render() and
 // a handleInput() method.
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+Player.prototype.collision = function(array){
+    for (var i = 0; i < array.length; i++){
+        if (this.x < array[i].x+60 && this.x+60 > array[i].x && this.y < array[i].y+40 && this.y+40 > array[i].y){
+            this.x = 200;
+            this.y = 375;
+        }
+        else{
+            console.log("success");
+        }
+    }
 };
 
 Player.prototype.update = function(dt) {
@@ -74,6 +89,7 @@ Player.prototype.update = function(dt) {
         this.y = 375;
         this.x = 200;
     }
+
 };
 
 Player.prototype.handleInput = function(key) {
