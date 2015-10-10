@@ -1,4 +1,7 @@
-// Enemies our player must avoid
+/**
+* @description Creates our enemy bugs
+* @constructor
+*/
 var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
@@ -15,6 +18,12 @@ var Enemy = function() {
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
+
+/**
+* @description Updates the x value of the enemy bug which allows them to move
+* @param {number} a time delta between ticks
+*/
+
 Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
@@ -28,6 +37,10 @@ Enemy.prototype.update = function(dt) {
     }
 };
 
+/**
+* @description Randomly assigns a y value (row) to the enemy bugs
+* @returns {number} Y-coordinate of the Enemy bug
+*/
 
 Enemy.prototype.getEnemyRow = function() {
     var yCoord = [55, 145, 225];
@@ -35,6 +48,10 @@ Enemy.prototype.getEnemyRow = function() {
     return this.y;
 };
 
+/**
+* @description Randomly assigns a speed to the enemy bugs
+* @returns {number} Speed of the bug
+*/
 
 Enemy.prototype.getEnemySpeed = function() {
     var randomSpeed = Math.floor((Math.random()*100)+1);
@@ -48,12 +65,15 @@ Enemy.prototype.render = function() {
 
 // Now write your own player class
 
+/*
+* Creates a new person
+* @constructor
+*/
+
 var Player = function() {
     this.sprite = 'images/char-princess-girl.png';
     this.x = 200;
     this.y = 375;
-    this.right = this.x + 30;
-    this.bottom = this.y + 30;
 };
 // This class requires an update(), render() and
 // a handleInput() method.
@@ -61,17 +81,23 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+/*
+* Determines if a collision happened between enemy bug and player
+* @param {array}
+*/
+
 Player.prototype.collision = function(array){
     for (var i = 0; i < array.length; i++){
         if (this.x < array[i].x+60 && this.x+60 > array[i].x && this.y < array[i].y+40 && this.y+40 > array[i].y){
             this.x = 200;
             this.y = 375;
         }
-        else{
-            console.log("success");
-        }
     }
 };
+
+/*
+* Determines if the player hits the water or tries to go off the screen
+*/
 
 Player.prototype.update = function(dt) {
     if (this.x > 450) {
@@ -90,12 +116,17 @@ Player.prototype.update = function(dt) {
 
 };
 
+/*
+* Listens to the key passed into the function and makes the player move accordingly
+* @param {string}
+*/
+
 Player.prototype.handleInput = function(key) {
    if (key === 'left') {
-            this.x = this.x - 100; //this needs a limitation
+            this.x = this.x - 100;
     }
     else if (key === 'right') {
-            this.x = this.x + 100; ///this needs a limitation
+            this.x = this.x + 100;
     }
     else if (key === 'up') {
             this.y = this.y - 80;
