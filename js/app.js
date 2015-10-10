@@ -1,7 +1,7 @@
 /**
-* @description Creates our enemy bugs
-* @constructor
-*/
+ * @description Creates our enemy bugs
+ * @constructor
+ */
 var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
@@ -13,49 +13,50 @@ var Enemy = function() {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
-    this.bottom = this.y +30;
+    this.bottom = this.y + 30;
 };
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 
 /**
-* @description Updates the x value of the enemy bug which allows them to move
-* @param {number} a time delta between ticks
-*/
+ * @description Updates the x value of the enemy bug which allows them to move
+ * @param {number} a time delta between ticks
+ */
 
 Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
     //console.log(this.x);
-    this.x = ((this.x)+this.speed*dt);
-    if (this.x > 400) {
+    this.x = ((this.x) + this.speed * dt);
+    if (this.x > RIGHT_SIDE_LIMIT_OF_SCREEN) {
         this.x = 0;
         this.speed = this.getEnemySpeed();
         this.y = this.getEnemyRow();
     }
 };
 
+var RIGHT_SIDE_LIMIT_OF_SCREEN = 400;
+
 /**
-* @description Randomly assigns a y value (row) to the enemy bugs
-* @returns {number} Y-coordinate of the Enemy bug
-*/
+ * @description Randomly assigns a y value (row) to the enemy bugs
+ * @returns {number} Y-coordinate of the Enemy bug
+ */
 
 Enemy.prototype.getEnemyRow = function() {
-    var yCoord = [55, 145, 225];
-    this.y = yCoord[Math.floor(Math.random()*3)];
+    var Y_COORD = [55, 145, 225];
+    this.y = Y_COORD[Math.floor(Math.random() * 3)];
     return this.y;
 };
 
 /**
-* @description Randomly assigns a speed to the enemy bugs
-* @returns {number} Speed of the bug
-*/
+ * @description Randomly assigns a speed to the enemy bugs
+ * @returns {number} Speed of the bug
+ */
 
 Enemy.prototype.getEnemySpeed = function() {
-    var randomSpeed = Math.floor((Math.random()*100)+1);
-    return randomSpeed;
+    return Math.floor((Math.random() * 100) + 1);
 };
 
 // Draw the enemy on the screen, required method for game
@@ -65,15 +66,20 @@ Enemy.prototype.render = function() {
 
 // Now write your own player class
 
+// Declaring constant values for @Player rather than using Mystery Number
+
+var PLAYER_START_X_COORD = 200;
+var PLAYER_START_Y_COORD = 375
+
 /*
-* Creates a new person
-* @constructor
-*/
+ * Creates a new person
+ * @constructor
+ */
 
 var Player = function() {
     this.sprite = 'images/char-princess-girl.png';
-    this.x = 200;
-    this.y = 375;
+    this.x = PLAYER_START_X_COORD;
+    this.y = PLAYER_START_Y_COORD;
 };
 // This class requires an update(), render() and
 // a handleInput() method.
@@ -82,57 +88,51 @@ Player.prototype.render = function() {
 };
 
 /*
-* Determines if a collision happened between enemy bug and player
-* @param {array}
-*/
+ * Determines if a collision happened between enemy bug and player
+ * @param {array}
+ */
 
-Player.prototype.collision = function(array){
-    for (var i = 0; i < array.length; i++){
-        if (this.x < array[i].x+60 && this.x+60 > array[i].x && this.y < array[i].y+40 && this.y+40 > array[i].y){
-            this.x = 200;
-            this.y = 375;
+Player.prototype.collision = function(array) {
+    for (var i = 0; i < array.length; i++) {
+        if (this.x < array[i].x + 60 && this.x + 60 > array[i].x && this.y < array[i].y + 40 && this.y + 40 > array[i].y) {
+            this.x = PLAYER_START_X_COORD;
+            this.y = PLAYER_START_Y_COORD;
         }
     }
 };
 
 /*
-* Determines if the player hits the water or tries to go off the screen
-*/
+ * Determines if the player hits the water or tries to go off the screen
+ */
 
 Player.prototype.update = function(dt) {
     if (this.x > 450) {
-        this.x = 400;
-    }
-    else if (this.x < 0) {
+        this.x = RIGHT_SIDE_LIMIT_OF_SCREEN;
+    } else if (this.x < 0) {
         this.x = 0;
-    }
-    else if (this.y > 430) {
-        this.y = 375;
-    }
-    else if (this.y < 50) {
-        this.y = 375;
-        this.x = 200;
+    } else if (this.y > 430) {
+        this.y = PLAYER_START_Y_COORD;
+    } else if (this.y < 50) {
+        this.y = PLAYER_START_Y_COORD;
+        this.x = PLAYER_START_X_COORD;
     }
 
 };
 
 /*
-* Listens to the key passed into the function and makes the player move accordingly
-* @param {string}
-*/
+ * Listens to the key passed into the function and makes the player move accordingly
+ * @param {string}
+ */
 
 Player.prototype.handleInput = function(key) {
-   if (key === 'left') {
-            this.x = this.x - 100;
-    }
-    else if (key === 'right') {
-            this.x = this.x + 100;
-    }
-    else if (key === 'up') {
-            this.y = this.y - 80;
-    }
-    else  if (key === 'down') {
-            this.y = this.y + 80;
+    if (key === 'left') {
+        this.x = this.x - 100;
+    } else if (key === 'right') {
+        this.x = this.x + 100;
+    } else if (key === 'up') {
+        this.y = this.y - 80;
+    } else if (key === 'down') {
+        this.y = this.y + 80;
     }
 };
 

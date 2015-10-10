@@ -24,6 +24,10 @@ How to Play
 -----------
 
 * Use arrow keys to move hero across the board
+* Up arrow moves hero forwards
+* Down arrow moves hero backwards
+* Left arrow moves hero to the left
+* Right arrow moves hero to the right
 * Try to not hit any of the enemy bugs
 * Your goal is to reach the water on the other side
 * Upon reaching the water the hero will reset to her original position
