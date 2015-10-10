@@ -94,10 +94,10 @@ Player.prototype.update = function(dt) {
 
 Player.prototype.handleInput = function(key) {
    if (key === 'left') {
-            this.x = this.x - 100; //this needs a limitation
+            this.x = this.x - 100;
     }
     else if (key === 'right') {
-            this.x = this.x + 100; ///this needs a limitation
+            this.x = this.x + 100;
     }
     else if (key === 'up') {
             this.y = this.y - 80;
