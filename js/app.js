@@ -26,8 +26,6 @@ Enemy.prototype.update = function(dt) {
         this.speed = this.getEnemySpeed();
         this.y = this.getEnemyRow();
     }
-    return
-    //console.log(this.x);
 };
 
 
@@ -35,13 +33,13 @@ Enemy.prototype.getEnemyRow = function() {
     var yCoord = [55, 145, 225];
     this.y = yCoord[Math.floor(Math.random()*3)];
     return this.y;
-}
+};
 
 
 Enemy.prototype.getEnemySpeed = function() {
     var randomSpeed = Math.floor((Math.random()*100)+1);
     return randomSpeed;
-}
+};
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
